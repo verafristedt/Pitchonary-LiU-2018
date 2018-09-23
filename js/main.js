@@ -84,7 +84,7 @@ function drawLoop( time ) {
 
 		
     // clear the background
-	canvasContext.clearRect(0,0,canvas.width,canvas.height);
+	//canvasContext.clearRect(0,0,canvas.width,canvas.height);
 	
 	analyser.getFloatTimeDomainData( buf );
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
@@ -93,7 +93,7 @@ function drawLoop( time ) {
 	 	pitchElem.innerText = "--";
  	} else {
 	 	
-	 	pitchElem.innerText = Math.round( ac ) ;
+	 	pitchElem.innerText = Math.max( ac ) ;
 		}  
     
     // check if we're currently clipping
@@ -103,7 +103,7 @@ function drawLoop( time ) {
         canvasContext.fillStyle = "green";
 
     // draw a bar based on the current volume
-	canvasContext.fillRect(meter.volume*canvas.width*10, ac*canvas.height/10000, 5, 5);
+	canvasContext.fillRect(meter.volume*canvas.width*1.5, ac/1.5, 5, 5);
 
     // set up the next visual callback
 	if (!window.requestAnimationFrame)

@@ -1,0 +1,46 @@
+body {
+	width: 100%;
+	font-family: "Trebuchet MS";
+	background-color: #F4F4F4;
+
+	display: flex;
+	justify-content: center;
+}
+
+.pageContainer {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+#ttl {
+	text-align: center;
+	color: #C0B283;
+	font-weight: 300;
+	font-size: 37px;
+}
+
+#info {
+	text-align: left;
+	color: #373737;
+	font-size: 15px;
+	margin: 0 5% 1% 5%;
+}
+
+.pitch {
+	margin-bottom: 10px;
+	color: #DCD0C0;
+}
+
+#canvasContainer {
+	height: 520px;
+	width: 520px;
+	background-color: #DCD0C0;
+}
+
+#meter {
+	margin: 10px;
+	background-color: white;
+}
+ /* ttl: C0B283
+    text: DCD0C0

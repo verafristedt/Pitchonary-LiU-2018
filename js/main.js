@@ -70,32 +70,32 @@ function gotStream(stream) {
 	analyser = audioContext.createAnalyser();
 	analyser.fftSize = 2048;
 	mediaStreamSource.connect(analyser);
-	//ASDASDASD
-	//updatePitch();
-	//ASDASDSAD
-	
 
     // kick off the visual updating
     drawLoop();
 }
 
+var storeDrawing = new Array();
 
-function drawLoop( time ) {
-
-		
+function drawLoop( time ) {		
     // clear the background
-	//canvasContext.clearRect(0,0,canvas.width,canvas.height);
+	canvasContext.clearRect(0,0,canvas.width,canvas.height);
 	
 	analyser.getFloatTimeDomainData( buf );
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
+	
+	document.addEventListener('keydown', function(event) {
+		storeDrawing.push({x: meter.volume*canvas.width, y: Math.round(ac/5)});
+	}, false);
 	
 	 if (ac == -1) {
 	 	pitchElem.innerText = "--";
  	} else {
 	 	
-	 	pitchElem.innerText = Math.max( ac ) ;
+	 	pitchElem.innerText = Math.round( ac ) ;
 		}  
-    
+   
+	
     // check if we're currently clipping
     if (meter.checkClipping())
         canvasContext.fillStyle = "red";
@@ -103,10 +103,17 @@ function drawLoop( time ) {
         canvasContext.fillStyle = "green";
 
     // draw a bar based on the current volume
-	canvasContext.fillRect(meter.volume*canvas.width*1.5, ac/1.5, 5, 5);
-
-    // set up the next visual callback
+	canvasContext.fillRect(meter.volume*canvas.width*1., ac/5, 5, 5);
+	
+	if(storeDrawing.length != 0 || storeDrawing.length != undefined){
+		for(var i=0; i < storeDrawing.length; i++){
+		canvasContext.fillRect(storeDrawing[i].x,storeDrawing[i].y,5,5);
+		}
+	}
+		
+	// set up the next visual callback
 	if (!window.requestAnimationFrame)
 		window.requestAnimationFrame = window.webkitRequestAnimationFrame;
-    rafID = window.requestAnimationFrame( drawLoop );
+	rafID = window.requestAnimationFrame( drawLoop );
+	
 }

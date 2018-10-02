@@ -1,5 +1,5 @@
 var dummyX = 0;
-
+var dummyBool = true;
 
 var audioContext = null;
 var meter = null;
@@ -85,15 +85,34 @@ function drawLoop( time ) {
 	
 	analyser.getFloatTimeDomainData( buf );
     var ac = autoCorrelate( buf, audioContext.sampleRate );
+    var xVal2 = (meter.volume*canvas.width)*2;
     
 	
-	document.addEventListener('keypress', function(event) {
+	document.addEventListener('keydown', function(event) {
         ac = autoCorrelate( buf, audioContext.sampleRate );
         var xVal = (meter.volume*canvas.width)*2;
         
-        if (dummyX != xVal && ac != -1){
-            storeDrawing.push({x: xVal, y: Math.round(ac/5)});
+        if (dummyX != xVal && ac != -1 && event.keyCode == 32){
+            if(xVal > canvas.width && ac/5 > canvas.height) storeDrawing.push({x: canvas.width-2.5, y: canvas.height-2.5, draw: true});
+            else if(xVal > canvas.width) storeDrawing.push({x: canvas.width-2.5, y: Math.round(ac/5), draw: true});
+            else if(ac/5 > canvas.height) storeDrawing.push({x: xVal, y: canvas.height-2.5, draw: true});
+            else storeDrawing.push({x: xVal, y: Math.round(ac/5), draw: true});
+
             dummyX = xVal;
+            dummyBool = true;
+        }
+        else if (event.keyCode == 8 && dummyBool){
+            storeDrawing.pop();
+            dummyBool = false;
+        }
+        else if (event.keyCode == 27){
+            storeDrawing = [];
+        }
+        else if (event.keyCode == 13){
+            if(xVal > canvas.width && ac/5 > canvas.height) storeDrawing.push({x: canvas.width-2.5, y: canvas.height-2.5, draw: false});
+            else if(xVal > canvas.width) storeDrawing.push({x: canvas.width-2.5, y: Math.round(ac/5), draw: false});
+            else if(ac/5 > canvas.height) storeDrawing.push({x: xVal, y: canvas.height-2.5, draw: false});
+            else storeDrawing.push({x: xVal, y: Math.round(ac/5), draw: false});
         }
         
 	}, false);
@@ -112,7 +131,10 @@ function drawLoop( time ) {
         canvasContext.fillStyle = "red";
 
     // draw a "crosshair" based on the current volume
-	canvasContext.fillRect(meter.volume*canvas.width*2, ac/5, 5, 5);
+    if(xVal2 > canvas.width && ac/5 > canvas.height) canvasContext.fillRect(canvas.width-5, canvas.height-5, 5, 5);
+    else if(xVal2 > canvas.width) canvasContext.fillRect(canvas.width-5, ac/5, 5, 5);
+    else if(ac/5 > canvas.height) canvasContext.fillRect(meter.volume*canvas.width*2, canvas.height-5, 5, 5);
+    else canvasContext.fillRect(meter.volume*canvas.width*2, ac/5, 5, 5);
 	
 	if(storeDrawing.length != 0 || storeDrawing.length != undefined){
         canvasContext.strokeStyle = "#DF4B26";
@@ -122,9 +144,14 @@ function drawLoop( time ) {
 		for(var i=0; i < storeDrawing.length; i++){
             //canvasContext.fillRect(storeDrawing[i].x,storeDrawing[i].y,5,5);
             canvasContext.beginPath();
-            if(i > 0) canvasContext.moveTo(storeDrawing[i-1].x, storeDrawing[i-1].y);
-                
-            else canvasContext.moveTo(storeDrawing[i].x+1, storeDrawing[i].y);
+            if(i > 0 && storeDrawing[i].draw) canvasContext.moveTo(storeDrawing[i-1].x, storeDrawing[i-1].y);
+
+            else if(!storeDrawing[i].draw) {
+                canvasContext.moveTo(storeDrawing[i].x, storeDrawing[i].y);
+                canvasContext.fillRect(storeDrawing[i].x, storeDrawing[i].y, 5, 5);
+            }
+
+            else canvasContext.moveTo(storeDrawing[i].x-1, storeDrawing[i].y);
 
             canvasContext.lineTo(storeDrawing[i].x, storeDrawing[i].y);
 

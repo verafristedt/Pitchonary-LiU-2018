@@ -1,3 +1,5 @@
+var dummyX = 0;
+
 
 var audioContext = null;
 var meter = null;
@@ -77,37 +79,57 @@ function gotStream(stream) {
 
 var storeDrawing = new Array();
 
-function drawLoop( time ) {		
+function drawLoop( time ) {	
     // clear the background
 	canvasContext.clearRect(0,0,canvas.width,canvas.height);
 	
 	analyser.getFloatTimeDomainData( buf );
-	var ac = autoCorrelate( buf, audioContext.sampleRate );
+    var ac = autoCorrelate( buf, audioContext.sampleRate );
+    
 	
-	document.addEventListener('keydown', function(event) {
-		storeDrawing.push({x: meter.volume*canvas.width, y: Math.round(ac/5)});
+	document.addEventListener('keypress', function(event) {
+        ac = autoCorrelate( buf, audioContext.sampleRate );
+        var xVal = (meter.volume*canvas.width)*2;
+        
+        if (dummyX != xVal && ac != -1){
+            storeDrawing.push({x: xVal, y: Math.round(ac/5)});
+            dummyX = xVal;
+        }
+        
 	}, false);
 	
 	 if (ac == -1) {
 	 	pitchElem.innerText = "--";
  	} else {
 	 	
-	 	pitchElem.innerText = Math.round( ac ) ;
+	 	pitchElem.innerText = Math.round( ac );
 		}  
-   
-	
+
     // check if we're currently clipping
-    if (meter.checkClipping())
+    /*if (meter.checkClipping())
         canvasContext.fillStyle = "red";
-    else
+    else*/
         canvasContext.fillStyle = "green";
 
-    // draw a bar based on the current volume
-	canvasContext.fillRect(meter.volume*canvas.width*1., ac/5, 5, 5);
+    // draw a "crosshair" based on the current volume
+	canvasContext.fillRect(meter.volume*canvas.width*2, ac/5, 5, 5);
 	
 	if(storeDrawing.length != 0 || storeDrawing.length != undefined){
+        canvasContext.strokeStyle = "#DF4B26";
+        canvasContext.lineJoin = "round";
+        canvasContext.lineWidth = 5;
+
 		for(var i=0; i < storeDrawing.length; i++){
-		canvasContext.fillRect(storeDrawing[i].x,storeDrawing[i].y,5,5);
+            //canvasContext.fillRect(storeDrawing[i].x,storeDrawing[i].y,5,5);
+            canvasContext.beginPath();
+            if(i > 0) canvasContext.moveTo(storeDrawing[i-1].x, storeDrawing[i-1].y);
+                
+            else canvasContext.moveTo(storeDrawing[i].x+1, storeDrawing[i].y);
+
+            canvasContext.lineTo(storeDrawing[i].x, storeDrawing[i].y);
+
+            canvasContext.closePath();
+            canvasContext.stroke();
 		}
 	}
 		

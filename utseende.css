@@ -1,7 +1,7 @@
 body {
 	width: 100%;
 	font-family: "Trebuchet MS";
-	background-color: #F4F4F4;
+	background-color: #FFD400;
 
 	display: flex;
 	justify-content: center;
@@ -20,27 +20,50 @@ body {
 	font-size: 37px;
 }
 
+#imgTitle {
+	height: 15%;
+	width: auto;
+	margin-top: 2%;
+}
+
 #info {
 	text-align: left;
 	color: #373737;
 	font-size: 15px;
-	margin: 0 5% 1% 5%;
+	margin: 3% 5% 1% 5%;
 }
 
 .pitch {
-	margin-bottom: 10px;
-	color: #DCD0C0;
+	margin: 10px;
+	color: #1A3F59;
+}
+
+#contentContainer {
+	display: -webkit-flex; /* Safari */
+    -webkit-align-items: center; /* Safari 7.0+ */
+    display: flex;
+    align-items: center;
 }
 
 #canvasContainer {
-	height: 520px;
-	width: 520px;
-	background-color: #DCD0C0;
+	height: 480px;
+	width: 470px;
+	background-color: #FFC603;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+#cutePen {
+	width: 100px;
+	height: auto;
 }
 
 #meter {
-	margin: 10px;
+	margin: 0 20px 20px 20px;
 	background-color: white;
+	height: 450px; 
+	width: 450px; 
+	border: 1px solid #000000;
 }
  /* ttl: C0B283
     text: DCD0C0

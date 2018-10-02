@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title id="ttl">Voice Draw</title>
+		<title id="ttl">PITCHONARY</title>
 		<!-- Include the volume meter component -->
 		<script src="js/volume-meter.js"></script>
 		<!-- Include the main app logic -->
@@ -15,14 +15,22 @@
     <body>
     	<div class="pageContainer">
 
-	        <h1 id="ttl">Voice Draw</h1>
+	        <img id="imgTitle" src="Pitchonary.png" alt="Pitchonary_Title">
 			
-			<p id="info">By varying your voice you can draw something in the canvas below. The x-axis represents the volume and the y-axis represents the frequency. Press space to start/stop your drawing.</p>
+			<p id="info">What is your friend drawing? By varying their voice, they can draw something in the canvas below. The x-axis represents the volume and the y-axis represents the frequency. What are you waiting for? Start playing!</p>
 		
-			<div class="pitch"><span id="pitch">--</span>Hz</div>
 
-			<div id="canvasContainer">
-				<canvas id="meter" height="500px" width="500px" style="border:1px solid #000000;"/>
+			<div id="contentContainer">
+				<div>
+					<p>[Space] - Press to draw</p>
+					<p>[Backspace] - Press to erase the last line that was drawn.
+					<p>[Esc] - Press to erase your drawing</p>
+				</div>
+				<div id="canvasContainer">
+					<div class="pitch"><span id="pitch">--</span>Hz</div>
+					<canvas id="meter"/>
+				</div>
+				<img id="cutePen" src="gubbe.png" alt="Cute_Pen"/>
 			</div>
 			
 			<!-- just used for debugging

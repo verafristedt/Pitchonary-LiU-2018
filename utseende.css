@@ -30,40 +30,46 @@ body {
 	text-align: left;
 	color: #373737;
 	font-size: 15px;
-	margin: 3% 5% 1% 5%;
+	padding: 10px 50px 0 50px;
 }
 
 .pitch {
-	margin: 10px;
+	margin: 5px 0 5px 0;
 	color: #1A3F59;
 }
 
 #contentContainer {
-	display: -webkit-flex; /* Safari */
-    -webkit-align-items: center; /* Safari 7.0+ */
     display: flex;
-    align-items: center;
+    align-items: left;
+    padding: 10px 30px 0 30px;
+    position: relative;
+}
+#explanation {
+	padding-right: 20px;
+	width: 400px;
 }
 
 #canvasContainer {
-	height: 480px;
-	width: 470px;
+	height: 520px;
+	width: 520px;
 	background-color: #FFC603;
 	display: flex;
 	flex-flow: column;
 	align-items: center;
 }
+#figureContainer {
+	position: absolute;
+  	bottom: 0;
+  	right: 0;
+}
 #cutePen {
-	width: 100px;
-	height: auto;
+	width: auto;
+	height: 150px;
 }
 
 #meter {
 	margin: 0 20px 20px 20px;
 	background-color: white;
-	height: 450px; 
-	width: 450px; 
-	border: 1px solid #000000;
 }
  /* ttl: C0B283
     text: DCD0C0

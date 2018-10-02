@@ -109,7 +109,7 @@ function drawLoop( time ) {
     /*if (meter.checkClipping())
         canvasContext.fillStyle = "red";
     else*/
-        canvasContext.fillStyle = "green";
+        canvasContext.fillStyle = "red";
 
     // draw a "crosshair" based on the current volume
 	canvasContext.fillRect(meter.volume*canvas.width*2, ac/5, 5, 5);

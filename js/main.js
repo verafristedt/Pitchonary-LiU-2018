@@ -53,7 +53,6 @@ window.onload = function() {
 
 }
 
-
 function didntGetStream() {
     alert('Stream generation failed.');
 }
@@ -68,7 +67,7 @@ function gotStream(stream) {
     meter = createAudioMeter(audioContext);
     mediaStreamSource.connect(meter);
 	
-	//ASDASDASD
+	// Create analyserNode
 	analyser = audioContext.createAnalyser();
 	analyser.fftSize = 2048;
 	mediaStreamSource.connect(analyser);
@@ -87,7 +86,6 @@ function drawLoop( time ) {
     var ac = autoCorrelate( buf, audioContext.sampleRate );
     var xVal2 = (meter.volume*canvas.width)*2;
     
-	
 	document.addEventListener('keydown', function(event) {
         ac = autoCorrelate( buf, audioContext.sampleRate );
         var xVal = (meter.volume*canvas.width)*2;
@@ -124,10 +122,6 @@ function drawLoop( time ) {
 	 	pitchElem.innerText = Math.round( ac );
 		}  
 
-    // check if we're currently clipping
-    /*if (meter.checkClipping())
-        canvasContext.fillStyle = "red";
-    else*/
         canvasContext.fillStyle = "red";
 
     // draw a "crosshair" based on the current volume

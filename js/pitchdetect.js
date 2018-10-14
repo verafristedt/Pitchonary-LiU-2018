@@ -1,4 +1,3 @@
-
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = null;
@@ -21,6 +20,8 @@ var tracks = null;
 var buflen = 1024;
 var buf = new Float32Array( buflen );
 
+<<<<<<< HEAD
+=======
 function noteFromPitch( frequency ) {
 	var noteNum = 12 * (Math.log( frequency / 440 )/Math.log(2) );
 	return Math.round( noteNum ) + 69;
@@ -35,6 +36,7 @@ function centsOffFromPitch( frequency, note ) {
 }
 
 
+>>>>>>> 77026a80ff1b0a370cbc7805861c71870695d712
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
 var GOOD_ENOUGH_CORRELATION = 0.9; // this is the "bar" for how close a correlation needs to be
 

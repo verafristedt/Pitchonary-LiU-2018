@@ -12,25 +12,12 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 */
 
 /*
-
-Usage:
-audioNode = createAudioMeter(audioContext,clipLevel,averaging,clipLag);
-
 audioContext: the AudioContext you're using.
 averaging: how "smoothed" you would like the meter to be over time.
    Should be between 0 and less than 1.  Defaults to 0.95.
-
 */
 
 function createAudioMeter(audioContext,averaging) {
@@ -44,7 +31,7 @@ function createAudioMeter(audioContext,averaging) {
 	processor.connect(audioContext.destination);
 
 	processor.shutdown =
-		function(){
+		function() {
 			this.disconnect();
 			this.onaudioprocess = null;
 		};

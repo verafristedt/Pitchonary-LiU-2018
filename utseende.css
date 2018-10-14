@@ -6,39 +6,33 @@ body {
 	display: flex;
 	justify-content: center;
 }
-
 .pageContainer {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
 }
-
 #ttl {
 	text-align: center;
 	color: #C0B283;
 	font-weight: 300;
 	font-size: 37px;
 }
-
 #imgTitle {
 	height: 15%;
 	width: auto;
 	margin-top: 2%;
 }
-
 #info {
 	text-align: left;
 	color: #373737;
 	font-size: 15px;
 	padding-bottom: 5%;
 }
-
 .pitch {
 	font-size: 20px;
 	color: #1A3F59;;
 	padding: 7px;
 }
-
 #contentContainer {
     display: flex;
     align-items: left;
@@ -48,8 +42,8 @@ body {
 #explanation {
 	padding-right: 20px;
 	width: 400px;
+	color: #373737;
 }
-
 #canvasContainer {
 	height: 560px;
 	width: 540px;
@@ -71,10 +65,7 @@ body {
 	width: auto;
 	height: 150px;
 }
-
 #meter {
 	margin: 0 20px 20px 20px;
 	background-color: white;
 }
- /* ttl: C0B283
-    text: DCD0C0

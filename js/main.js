@@ -29,8 +29,8 @@ window.onload = function() {
     // Attempt to get audio input
     try {
         // monkeypatch getUserMedia
-        navigator.getUserMedia = 
-        	navigator.getUserMedia ||
+        navigator.mediaDevices.getUserMedia = 
+        	navigator.mediaDevices.getUserMedia ||
         	navigator.webkitGetUserMedia ||
         	navigator.mozGetUserMedia;
 
@@ -50,9 +50,7 @@ window.onload = function() {
     } catch (e) {
         alert('getUserMedia threw exception :' + e);
     }
-
 }
-
 
 function didntGetStream() {
     alert('Stream generation failed.');
@@ -120,15 +118,10 @@ function drawLoop( time ) {
 	 if (ac == -1) {
 	 	pitchElem.innerText = "--";
  	} else {
-	 	
 	 	pitchElem.innerText = Math.round( ac );
-		}  
-
-    // check if we're currently clipping
-    /*if (meter.checkClipping())
-        canvasContext.fillStyle = "red";
-    else*/
-        canvasContext.fillStyle = "red";
+	}  
+       
+    canvasContext.fillStyle = "red";
 
     // draw a "crosshair" based on the current volume
     if(xVal2 > canvas.width && ac/5 > canvas.height) canvasContext.fillRect(canvas.width-5, canvas.height-5, 5, 5);
